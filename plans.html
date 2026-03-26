@@ -1,0 +1,18 @@
+<h2>Investment Plans</h2>
+
+{% for plan in plans %}
+
+<h3>{{plan.name}}</h3>
+
+<p>Minimum: {{plan.minimum_amount}}</p>
+
+<p>Interest: {{plan.interest_rate}}%</p>
+
+<p>Duration: {{plan.duration_days}} days</p>
+
+<a href="/invest/{{plan.id}}">Invest</a>
+
+<hr>
+
+{% endfor %}
+

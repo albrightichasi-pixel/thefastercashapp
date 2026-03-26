@@ -1,0 +1,32 @@
+<h2>Welcome, {{ request.user.username }}</h2>
+
+<p><strong>Total Invested:</strong> KES {{ total_invested }}</p>
+<p><strong>Total Expected Return:</strong> KES {{ total_expected }}</p>
+
+<hr>
+
+<h3>Your Investments</h3>
+
+{% for inv in investments %}
+
+<div style="border:1px solid #ccc; padding:15px; margin-bottom:10px;">
+
+    <p><strong>Plan:</strong> {{ inv.plan.name }}</p>
+    <p><strong>Amount:</strong> KES {{ inv.amount }}</p>
+    <p><strong>Interest:</strong> {{ inv.plan.interest_rate }}%</p>
+    <p><strong>Expected Return:</strong> KES {{ inv.calculate_profit }}</p>
+    <p><strong>Approved:</strong> {{ inv.approved }}</p>
+    <p><strong>Can Withdraw:</strong> {{ inv.can_withdraw }}</p>
+    <p><strong>Withdrawal Requested:</strong> {{ inv.withdrawal_requested }}</p>
+    <p><strong>Withdrawal Approved:</strong> {{ inv.withdrawal_approved }}</p>
+    <p><strong>Withdrawn:</strong> {{ inv.withdrawn }}</p>
+
+    {% if inv.approved and inv.can_withdraw and not inv.withdrawn and not inv.withdrawal_requested %}
+        <a href="/withdraw/{{ inv.id }}/">Request Withdrawal</a>
+    {% endif %}
+
+</div>
+
+{% empty %}
+<p>No investments yet.</p>
+{% endfor %}
